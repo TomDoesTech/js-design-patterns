@@ -1,0 +1,10 @@
+{
+  "name": "mongo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Tom Nagle",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^6.2.8"
+  }
+}

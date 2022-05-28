@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ccNetViz example</title>
+    <style type="text/css">
+      #container {
+        width: 80%;
+        height: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/ccnetviz@1.0.7/dist/ccNetViz.js"></script>
+  </head>
+  <body>
+    <canvas width="100%" id="container"></canvas>
+
+    <script defer>
+      const factory = {
+        createGraph() {
+          return new ccNetViz(document.getElementById("container"), {
+            styles: {
+              node: {
+                texture: "images/node.png",
+                label: {
+                  minSize: 50,
+                  maxSize: 50,
+                  color: "#fff",
+                },
+                color: "#fff",
+              },
+              edge: {
+                width: 3,
+                color: "#fff",
+                arrow: { texture: "images/arrow.png" },
+              },
+            },
+          });
+        },
+        createNode({ label }) {
+          return {
+            label,
+          };
+        },
+        createEdge({ source, target }) {
+          return {
+            source,
+            target,
+          };
+        },
+      };
+
+      const graph = factory.createGraph();
+
+      const nodes = [
+        factory.createNode({ label: "Tom" }),
+        factory.createNode({ label: "Jerry" }),
+        factory.createNode({ label: "Mark" }),
+        factory.createNode({ label: "Jane" }),
+      ];
+
+      const edges = [
+        factory.createEdge({ source: nodes[0], target: nodes[1] }),
+        factory.createEdge({ source: nodes[1], target: nodes[2] }),
+        factory.createEdge({ source: nodes[2], target: nodes[3] }),
+        factory.createEdge({ source: nodes[3], target: nodes[0] }),
+      ];
+
+      async function set() {
+        await graph.set(nodes, edges, "force");
+
+        graph.draw();
+      }
+
+      set();
+    </script>
+  </body>
+</html>
